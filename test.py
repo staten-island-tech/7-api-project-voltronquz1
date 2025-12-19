@@ -1,19 +1,25 @@
 import tkinter as tk
-def say_hello():
-    print("Hello there!")
-window = tk.Tk()
-window.title("Button Example")
-# Create the button
-my_button = tk.Button(
-window, # parent container
-text="Say Hello", # label text
-command=say_hello, # function to call when clicked
-font=("Arial", 16), # nice big font
-bg="lightblue", # background color
-fg="black", # text color
-relief="raised", # gives it a 3D look
-padx=10, pady=5 # padding around the text
+import os
+API_KEY = os.getenv("dad6addc-d461-4fc7-a407-071967c5638d")
 
-)
-my_button.pack(pady=20) # place it on the window
-window.mainloop()
+if not API_KEY:
+    raise RuntimeError("API key not found")
+
+def call_api():
+    headers = {
+        "Authorization": f"Bearer {API_KEY}"
+    }
+    response = requests.get(
+        "https://tcg.pokemon.com/en-us/",
+        headers=headers
+    )
+    result_label.config(text=response.text)
+
+root = tk.Tk()
+root.title("Tkinter API App")
+
+tk.Button(root, text="Call API", command=call_api).pack(pady=10)
+result_label = tk.Label(root, text="Waiting...")
+result_label.pack()
+
+root.mainloop()
