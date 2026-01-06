@@ -33,9 +33,9 @@ def check_guess():
         return
 
     if guess == pokemon_name:
-        result_label.config(text="Correct! 🎉", fg="green")
+        result_label.config(text="Correct! ", fg="green")
     else:
-        result_label.config(text="Wrong! ❌ Try again.", fg="red")
+        result_label.config(text="Wrong!  Try again.", fg="red")
 
 def show_hint():
     types = ", ".join(t.capitalize() for t in pokemon_types)
